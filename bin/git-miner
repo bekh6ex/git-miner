@@ -1,0 +1,13 @@
+#!/usr/bin/php
+<?php
+use Bekh6ex\GitMiner\Application;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$file = $argv[1];
+
+if (!file_exists($file)) {
+    throw new RuntimeException("File `$file` does not exist");
+}
+
+(new Application(getcwd() . '/report'))->main(fopen($file, 'r'));
