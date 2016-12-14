@@ -70,7 +70,7 @@ class File
      */
     public function modificationScore()
     {
-        $borderDate = $this->created->modify('+2 months');
+        $borderDate = $this->created->modify('+6 months');
 
         $totalChangeCount = count($this->changes);
         $initialPeriodChangeCount = $this->countChangesBeforeDate($borderDate);

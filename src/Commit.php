@@ -21,7 +21,7 @@ class Commit
     public function __construct($hash, \DateTimeImmutable $date, array $fileChanges)
     {
         $this->hash = $hash;
-        $this->date = $date;
+        $this->date = $date->setTimezone(new \DateTimeZone('UTC'));
         $this->fileChanges = $fileChanges;
     }
 
@@ -38,5 +38,10 @@ class Commit
     public function fileChanges()
     {
         return $this->fileChanges;
+    }
+
+    function __toString()
+    {
+        return $this->hash . '(' . $this->date->format('c') . ')';
     }
 }
