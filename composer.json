@@ -1,0 +1,31 @@
+{
+    "name": "bekh6ex/git-mining",
+    "type": "app",
+    "require-dev": {
+        "phpunit/phpunit": "^5.0",
+        "hamcrest/hamcrest-php": "^2.0@dev"
+    },
+    "autoload": {
+        "files":[
+            "vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest.php"
+        ],
+        "psr-4":{
+            "Bekh6ex\\GitMiner\\": "src"
+        }
+    },
+
+    "autoload-dev": {
+        "psr-4":{
+            "Bekh6ex\\GitMiner\\Test\\": "tests"
+        }
+    },
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "bekh",
+            "email": "6ex@mail.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
