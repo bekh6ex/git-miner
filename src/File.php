@@ -20,6 +20,10 @@ class File
         $this->addChange($created);
     }
 
+    public function name()
+    {
+        return $this->name;
+    }
     /**
      * @return DateTimeImmutable
      */
@@ -50,6 +54,40 @@ class File
     public function addChange(DateTimeImmutable $changeDate)
     {
         $this->changes[] = $changeDate;
+    }
+
+    /**
+     * @param DateTimeImmutable $date
+     * @return bool
+     */
+    public function wasCreatedBefore(DateTimeImmutable $date)
+    {
+        return $this->created < $date;
+    }
+
+    /**
+     * @return float
+     */
+    public function modificationScore()
+    {
+        $borderDate = $this->created->modify('+2 months');
+
+        $totalChangeCount = count($this->changes);
+        $initialPeriodChangeCount = $this->countChangesBeforeDate($borderDate);
+
+        return ($totalChangeCount - $initialPeriodChangeCount) / $initialPeriodChangeCount;
+    }
+
+    private function countChangesBeforeDate(DateTimeImmutable $date)
+    {
+        $result = 0;
+        foreach ($this->changes as $change) {
+            if ($change < $date) {
+                $result++;
+            }
+        }
+
+        return $result;
     }
 
 

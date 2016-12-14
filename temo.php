@@ -7,7 +7,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 $parser = new \Bekh6ex\GitMiner\Parser();
 
 
-$file = fopen(__DIR__ . '/git-log.txt', 'r');
+$file = fopen(__DIR__ . '/4seo-git-log.txt', 'r');
 
 $commits = $parser->parse($file);
 
@@ -36,5 +36,26 @@ foreach ($commits as $commit) {
     }
 }
 
-var_dump($files);
+$borderCreationDate = (new DateTimeImmutable())->modify('-1 month');
+$files = array_filter($files, function (File $file) use ($borderCreationDate) {
+    return $file->wasCreatedBefore($borderCreationDate);
+});
+$files = array_filter($files, function (File $file) use ($borderCreationDate) {
+    return substr($file->name(), -4) === '.php';
+});
+$files = array_filter($files, function (File $file) use ($borderCreationDate) {
+    return strpos($file->name(), 'tests') === false;
+});
+
+usort($files, function (File $a, File $b) {
+    return $a->modificationScore() < $b->modificationScore();
+});
+
+
+/** @var File[] $top20 */
+$top20 = array_slice($files, 0, 20);
+
+foreach ($top20 as $item) {
+    echo $item->modificationScore() . ' : ' . $item->name() . "\n";
+}
 
