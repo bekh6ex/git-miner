@@ -1,6 +1,9 @@
 {
     "name": "bekh6ex/git-mining",
     "type": "app",
+    "require": {
+        "zetacomponents/graph": "^1.5"
+    },
     "require-dev": {
         "phpunit/phpunit": "^5.0",
         "hamcrest/hamcrest-php": "^2.0@dev"
@@ -26,6 +29,5 @@
             "email": "6ex@mail.ru"
         }
     ],
-    "minimum-stability": "dev",
-    "require": {}
+    "minimum-stability": "dev"
 }
